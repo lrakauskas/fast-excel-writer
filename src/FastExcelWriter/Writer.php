@@ -211,6 +211,9 @@ class Writer
     public function __destruct()
     {
         foreach (self::$buffers as $name => $buffer) {
+            if($this->tempDir && !str_starts_with($name, $this->tempDir)){
+                continue;
+            }
             if ($buffer) {
                 $buffer->close();
                 self::$buffers[$name] = null;
